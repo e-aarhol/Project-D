@@ -2,15 +2,13 @@ const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const path = require("path");
-const db = require("better-sqlite3")("database.db")
-
+const db = require("better-sqlite3")("mydb.db")
 const app = express();
 
 
 
-
 app.use(session({
-    secret: "Einlangstringsombørveretilfeldiggenerertoglagratdidotenv",
+    secret: "OmniManIsReal",
     resave: false,
     saveUninitialized: false //Ved false settes ikke cookie (med sessionID) før en evt gjør endringer i sesjonen
 })) 
@@ -18,15 +16,15 @@ app.use(session({
 app.use(express.urlencoded({extended: true}))
 
 
-app.get("/registrer", (req, res) => {
-    res.sendFile(path.join(__dirname, "/registrer.html"))
+app.get("/regice", (req, res) => {
+    res.sendFile(path.join(__dirname, "/www/regice.html"))
 })
 
 app.get("/", (req, res) => {
     if(req.session.loggedin) {
-        res.sendFile(path.join(__dirname, "/index.html"))
+        res.sendFile(path.join(__dirname, "/www/index.html"))
     } else {
-        res.sendFile(path.join(__dirname, "/login.html"))
+        res.sendFile(path.join(__dirname, "/www/login.html"))
     }    
 })
 
@@ -50,7 +48,7 @@ app.post(("/addUser"), async (req, res) => {
     console.log(svar)
     console.log(hash)
 
-    db.prepare("INSERT INTO user (name, email, hash) VALUES (?, ?, ?)").run(svar.name, svar.email, hash)
+    db.prepare("INSERT INTO user (username, email, password) VALUES (?, ?, ?)").run(svar.name, svar.email, hash)
     
     res.redirect("back")    
 })
