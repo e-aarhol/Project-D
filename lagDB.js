@@ -9,44 +9,28 @@ db.exec(`
 PRAGMA foreign_keys = OFF;
 
 -- Schema: mydb
-ATTACH "mydb.db" AS "mydb";
+ATTACH "dbstats.db" AS "dbstats";
 BEGIN;
-CREATE TABLE "mydb"."user"(
-  "iduser" INTEGER PRIMARY KEY NOT NULL,
-  "username" VARCHAR(45) NOT NULL,
-  "password" VARCHAR(45) NOT NULL
+CREATE TABLE User (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  brukernavn TEXT UNIQUE NOT NULL,
+  passord TEXT NOT NULL
 );
-CREATE TABLE "mydb"."products"(
-  "idproducts" INTEGER PRIMARY KEY NOT NULL,
-  "productName" VARCHAR(45),
-  "description" VARCHAR(45),
-  "priceNOK" INTEGER
+
+CREATE TABLE Game (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  bruker_id INTEGER NOT NULL,
+  resultat TEXT NOT NULL,
+  dato TEXT NOT NULL,
+  FOREIGN KEY (bruker_id) REFERENCES Brukere(id)
 );
-CREATE TABLE "mydb"."shoppinCart"(
-  "user_iduser" INTEGER NOT NULL,
-  "products_idproducts" INTEGER NOT NULL,
-  PRIMARY KEY("user_iduser","products_idproducts"),
-  CONSTRAINT "fk_user_has_products_user"
-    FOREIGN KEY("user_iduser")
-    REFERENCES "user"("iduser"),
-  CONSTRAINT "fk_user_has_products_products1"
-    FOREIGN KEY("products_idproducts")
-    REFERENCES "products"("idproducts")
+
+CREATE TABLE Stats (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  bruker_id INTEGER NOT NULL,
+  seire INTEGER NOT NULL,
+  tap INTEGER NOT NULL,
+  FOREIGN KEY (bruker_id) REFERENCES Brukere(id)
 );
-CREATE INDEX "mydb"."shoppinCart.fk_user_has_products_products1_idx" ON "shoppinCart" ("products_idproducts");
-CREATE INDEX "mydb"."shoppinCart.fk_user_has_products_user_idx" ON "shoppinCart" ("user_iduser");
-CREATE TABLE "mydb"."purchaseHistoryxx"(
-  "user_iduser" INTEGER NOT NULL,
-  "products_idproducts" INTEGER NOT NULL,
-  PRIMARY KEY("user_iduser","products_idproducts"),
-  CONSTRAINT "fk_user_has_products_user1"
-    FOREIGN KEY("user_iduser")
-    REFERENCES "user"("iduser"),
-  CONSTRAINT "fk_user_has_products_products2"
-    FOREIGN KEY("products_idproducts")
-    REFERENCES "products"("idproducts")
-);
-CREATE INDEX "mydb"."purchaseHistoryxx.fk_user_has_products_products2_idx" ON "purchaseHistoryxx" ("products_idproducts");
-CREATE INDEX "mydb"."purchaseHistoryxx.fk_user_has_products_user1_idx" ON "purchaseHistoryxx" ("user_iduser");
-COMMIT;
 `)
+
