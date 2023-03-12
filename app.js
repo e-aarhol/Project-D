@@ -17,6 +17,8 @@ app.use(session({
 
 app.use(express.urlencoded({extended: true}))
 
+
+ //legger til css og game.js
 app.get('/css.css', (req, res) => {
     res.set('Content-Type', 'text/css');
     res.sendFile(path.join(__dirname, 'css.css'));
@@ -26,6 +28,8 @@ app.get('/css.css', (req, res) => {
     res.set('Content-Type', 'text/html');
     res.sendFile(path.join(__dirname, 'game.js'));
   });
+
+
 
 app.get("/regice", (req, res) => {
     res.sendFile(path.join(__dirname, "/regice.html"))
@@ -94,13 +98,8 @@ app.get('/play', (req, res) => {
       return res.redirect('/login');
     }
   
-    res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
+    res.sendFile(path.join(__dirname,  'welcome.html'));
   });
-
-
-//
-
-
 
 
 
