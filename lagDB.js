@@ -11,26 +11,12 @@ PRAGMA foreign_keys = OFF;
 -- Schema: mydb
 ATTACH "dbstats.db" AS "dbstats";
 BEGIN;
-CREATE TABLE User (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  brukernavn TEXT UNIQUE NOT NULL,
-  passord TEXT NOT NULL
-);
-
-CREATE TABLE Game (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  bruker_id INTEGER NOT NULL,
-  resultat TEXT NOT NULL,
-  dato TEXT NOT NULL,
-  FOREIGN KEY (bruker_id) REFERENCES Brukere(id)
-);
-
-CREATE TABLE Stats (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  bruker_id INTEGER NOT NULL,
-  seire INTEGER NOT NULL,
-  tap INTEGER NOT NULL,
-  FOREIGN KEY (bruker_id) REFERENCES Brukere(id)
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  email TEXT NOT NULL,
+  password TEXT NOT NULL,
+  wins INTEGER NOT NULL DEFAULT 0,
+  losses INTEGER NOT NULL DEFAULT 0
 );
 `)
 

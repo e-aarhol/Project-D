@@ -17,6 +17,15 @@ app.use(session({
 
 app.use(express.urlencoded({extended: true}))
 
+app.get('/css.css', (req, res) => {
+    res.set('Content-Type', 'text/css');
+    res.sendFile(path.join(__dirname, 'css.css'));
+  });
+  
+  app.get('/game.js', (req, res) => {
+    res.set('Content-Type', 'text/html');
+    res.sendFile(path.join(__dirname, 'game.js'));
+  });
 
 app.get("/regice", (req, res) => {
     res.sendFile(path.join(__dirname, "/regice.html"))
@@ -80,7 +89,13 @@ app.get("", (req, res) => {
     res.send("Antall besøkende: " + req.session.visits)
 })
 
-
+app.get('/play', (req, res) => {
+    if (!req.session.userId) {
+      return res.redirect('/login');
+    }
+  
+    res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
+  });
 
 
 //
