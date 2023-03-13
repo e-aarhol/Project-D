@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="/css.css" />
+  </head>
+  <body>
+    <h1>Admin Page</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Delete User</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{email}}</td>
+          <td>{{wins}}</td>
+          <td>{{losses}}</td>
+          <td>
+            <form method="POST" action="/deleteUser">
+              <input type="hidden" name="iduser" value="{{iduser}}">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </body>
+</html>
