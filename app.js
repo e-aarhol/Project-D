@@ -37,7 +37,7 @@ app.get("/regice", (req, res) => {
 
 app.get("/", (req, res) => {
     if(req.session.loggedin) {
-        res.sendFile(path.join(__dirname, "/welcome.html"))
+        res.sendFile(path.join(__dirname, "/index.html"))
     } else {
         res.sendFile(path.join(__dirname, "/login.html"))
     }    
